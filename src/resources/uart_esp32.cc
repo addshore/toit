@@ -367,9 +367,14 @@ PRIMITIVE(create) {
     .queue = &queue,
     .queue_size = UART_QUEUE_SIZE,
   };
+  constexpr uint32_t all_interrupt_mask = ~static_cast<uint32_t>(0);
   // Install the ISR on the SystemEventSource's main thread that runs on core 0,
   // to allocate the interrupts on core 0.
-  SystemEventSource::instance()->run([&]() -> void {
+  // Scrub once right before installing the driver to minimize stale pending
+  // interrupt state when the ISR gets attached.
+  SystemEventSource::instance()->run([&err, &args, all_interrupt_mask]() -> void {
+    (void) uart_disable_intr_mask(args.port, all_interrupt_mask);
+    (void) uart_clear_intr_status(args.port, all_interrupt_mask);
     err = uart_driver_install(args.port,
                               args.rx_buffer_size,
                               args.tx_buffer_size,
