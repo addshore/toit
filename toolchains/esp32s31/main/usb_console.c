@@ -70,7 +70,7 @@ static void run_console(void* arg) {
 
 void usb_console_start(void) {
   uint8_t mac[6];
-  if (esp_efuse_mac_get_default(mac) != ESP_OK) return;
+  if (esp_read_mac(mac, ESP_MAC_WIFI_STA) != ESP_OK) return;
   snprintf(serial_number, sizeof(serial_number), "TOITS31%02X%02X%02X%02X%02X%02X",
            mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
