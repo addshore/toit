@@ -1,0 +1,11 @@
+menu "Toit USB console"
+    config TOIT_USB_CONSOLE
+        bool "Mirror UART console output to USB OTG"
+        default n
+        select TINYUSB_CDC_ENABLED
+        help
+            Run an output-only CDC console on the USB OTG peripheral.
+            The UART console remains available. Disable this option when
+            the application needs the OTG peripheral for USB host mode
+            or another USB device implementation.
+endmenu

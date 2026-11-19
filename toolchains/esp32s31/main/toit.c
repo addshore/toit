@@ -15,10 +15,16 @@
 
 // Toit ESP32 top level, derived from ESP-IDF Hello World example.
 
+#include "sdkconfig.h"
+
 extern void toit_start();
+#if CONFIG_TOIT_USB_CONSOLE
 extern void usb_console_start(void);
+#endif
 
 void app_main() {
+#if CONFIG_TOIT_USB_CONSOLE
   usb_console_start();
+#endif
   toit_start();
 }

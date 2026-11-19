@@ -4960,6 +4960,12 @@ CONFIG_RODATA_PADDING=2097152
 # end of Toit
 
 #
+# Toit USB console
+#
+CONFIG_TOIT_USB_CONSOLE=y
+# end of Toit USB console
+
+#
 # TinyUSB Stack
 #
 # default:

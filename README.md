@@ -314,6 +314,11 @@ in `build/esp32/firmware.envelope`:
 make esp32
 ```
 
+The ESP32-S31 defaults enable an output-only USB OTG console alongside UART.
+Disable `CONFIG_TOIT_USB_CONSOLE` in the SDK configuration when the application
+needs the OTG peripheral for USB host mode or another USB device implementation.
+USB host support and board-specific VBUS power control must be configured separately.
+
 If you want to flash the generated firmware on your device, you can use the `firmware`
 too. Internally, the `firmware` tool calls out to
 [esptool](https://github.com/espressif/esptool)
